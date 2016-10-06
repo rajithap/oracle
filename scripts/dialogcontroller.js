@@ -81,7 +81,7 @@ angular.module('yapp').controller('baseController', function ($scope, $state, $h
                 }
                 console.log(intents[topintent].intent);
                 console.log(entities)
-                var intentResult = actionService.ExecuteIntent(intents[topintent].intent,entities);
+                var intentResult = actionService.ExecuteIntent(intents[topintent].intent, entities);
                 $scope.ttsstring = intentResult.spokenText;
                 $scope.displayText = intentResult.displayText;
                 $scope.playtts();                
