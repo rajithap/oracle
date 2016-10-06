@@ -1,6 +1,6 @@
 ﻿angular.module('yapp')
     .factory('actionService', function ($http, $q) {
-        var executeIntent = function (intentResult,entities) {
+        var executeIntent = function (intentResult, entities) {
 
             var actionResult = new Object();
             console.log(intentResult);
