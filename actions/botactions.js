@@ -4,6 +4,7 @@
 
             var actionResult = new Object();
             console.log(intentResult);
+            console.log(entities);
             switch(intentResult)
             {
                 case 'asktime':
@@ -27,12 +28,12 @@
                     actionResult.spokenText = "I'm still learning to add!";
                     break;
                  case 'greetings':
-                    actionResult.displayText = "Well hello there";
-                    actionResult.spokenText = "Hi!";
+                    actionResult.displayText = "Well, hello there!";
+                    actionResult.spokenText = "Well hello there!";
                     break;
                 case 'tellname':
-                    actionResult.displayText = "My Name is Sahya Charan Robot";
-                    actionResult.spokenText = "My Name is Sahya Charan Robot";
+                    actionResult.displayText = "My Name is ";
+                    actionResult.spokenText = "My Name is ";
                     break;
                 case 'askweather':
                     var appurl = "https://query.yahooapis.com/v1/public/yql?q=select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text='sammamish,wa')&format=json"
