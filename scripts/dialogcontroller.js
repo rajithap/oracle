@@ -60,7 +60,7 @@ angular.module('yapp').controller('baseController', function ($scope, $state, $h
         }
         $scope.ttsstring = "i heard " + $scope.final_transcript;
 
-        var apppurl = 'https://api.projectoxford.ai/luis/v1/application?id=4d92f786-a859-420c-93f3-695d0f17baed&subscription-key=bf8bd31bf4344e7ab98c26c7c0b4855e' +  $scope.final_transcript + '\'';
+        var apppurl = 'https://api.projectoxford.ai/luis/v1/application?id=4d92f786-a859-420c-93f3-695d0f17baed&subscription-key=bf8bd31bf4344e7ab98c26c7c0b4855e&q=' +  $scope.final_transcript + '\'';
         $http.get(apppurl).then(function (response) {
             $scope.appresponse = response;
             console.log(response);
@@ -80,7 +80,8 @@ angular.module('yapp').controller('baseController', function ($scope, $state, $h
                     }                    
                 }
                 console.log(intents[topintent].intent);
-                var intentResult = actionService.ExecuteIntent(intents[topintent].intent,entities);
+                console.log(entities)
+                var intentResult = actionService.ExecuteIntent(intents[topintent].intent, entities);
                 $scope.ttsstring = intentResult.spokenText;
                 $scope.displayText = intentResult.displayText;
                 $scope.playtts();                

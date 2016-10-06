@@ -1,0 +1,49 @@
+Interactions:
+
+1. 
+U: Hi!
+R: Hi! What's your name?
+U: I'm Rajitha. What's your name?
+R: Nice to meet you, Rajitha! I'm R.
+R: What would you like help with today?
+U: I don't know how to add 5 and 4.
+R: That's ok! Imagine having a basket of 5 apples and putting 4 more in the basket.
+R: Here's a picture. <img>
+R: How many apples are there in the basket now?
+U: Umm... 8?
+R: Close! Why don't you count all the apples in the basket again?
+U: Oh! 9?
+R: That's right! Let's practice with one more question!
+U: Ok.
+R: What is 3 + 7? 
+U: 10
+R: That's right! Good job! Would you like to practice another concept?
+U: No, I'm ok, thanks.
+R: You're welcome. Come back anytime!
+
+2. 
+U: Hello. I'm Haridhar.
+R: Hi! Nice to meet you, Haridhar! I'm R.
+R: What would you like help with today?
+U: Can you quiz me on multiplication?
+R: Sure! Do you want to multiply single digit or double digit numbers?
+U: Double digit.
+R: Ok. What is 53*42?
+U: 2220?
+R: Almost! Try again. 
+U: 2120?
+R: Close. Would you like a hint?
+U: Yeah.
+R: <img> What is 53*2?
+U: Umm... 106?
+R: That's right! What's 53*40?
+U: 2120.
+R: Yeah! So if 53*2 is 106 and 53*40 is 2120, what is 53*42?
+U: I don't know?
+R: Here's a hint: add the two numbers together.
+U: Oh! 2226?
+R: That's right! Let's do another.
+
+3. 
+
+
