@@ -32,8 +32,8 @@
                     actionResult.spokenText = "Well hello there!";
                     break;
                 case 'tellname':
-                    actionResult.displayText = "My Name is ";
-                    actionResult.spokenText = "My Name is ";
+                    actionResult.displayText = "My Name is R";
+                    actionResult.spokenText = "My Name is R";
                     break;
                 case 'askweather':
                     var appurl = "https://query.yahooapis.com/v1/public/yql?q=select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text='sammamish,wa')&format=json"
