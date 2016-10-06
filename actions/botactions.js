@@ -53,8 +53,8 @@
         }
 
         return {
-            ExecuteIntent: function (intent) {
-                return executeIntent(intent);
+            ExecuteIntent: function (intent, entities) {
+                return executeIntent(intent, entities);
             }
         };
 });
