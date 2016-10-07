@@ -27,7 +27,7 @@
                     sum = 0
                     for (i=0; i < entities.length; i++){
                         if (entities[i].type == "builtin.number")
-                            sum+= entities[i].entity;
+                            sum+= parseInt(entities[i].entity);
                     }
 
                     actionResult.displayText = "The sum of this number is " + sum;
