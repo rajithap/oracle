@@ -24,8 +24,13 @@
                     actionResult.spokenText = "Well hello there how are you!";
                     break;
                  case 'add':
-                    actionResult.displayText = "Hi, I'm still learning to add!";
-                    actionResult.spokenText = "I'm still learning to add!";
+                    sum = 0
+                    for (i=0; i < entities.length; i++){
+                        sum+= entities[i];
+                    }
+
+                    actionResult.displayText = "The sum of this number is " + sum;
+                    actionResult.spokenText = actionResult.displayText;
                     break;
                  case 'greetings':
                     actionResult.displayText = "Well, hello there!";
