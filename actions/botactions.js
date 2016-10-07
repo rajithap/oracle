@@ -26,7 +26,8 @@
                  case 'add':
                     sum = 0
                     for (i=0; i < entities.length; i++){
-                        sum+= entities[i];
+                        if (entities[i].type == "builtin.number"):
+                            sum+= entities[i].entity;
                     }
 
                     actionResult.displayText = "The sum of this number is " + sum;
