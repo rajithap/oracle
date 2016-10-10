@@ -25,15 +25,34 @@
                     break;
                  case 'add':
                     sum = 0
-                    for (i=0; i < entities.length; i++){
-                        if (entities[i].type == "builtin.number")
-                            sum+= parseInt(entities[i].entity);
+                    if (entities.length == 1 && entities[0].type == "builtin.number"){
+                        sum = parseInt(entities[0].entity)*2;
+                    }
+                    else{
+                        for (i=0; i < entities.length; i++){
+                            if (entities[i].type == "builtin.number")
+                                sum+= parseInt(entities[i].entity);
+                        }
+                    }
+
+                    actionResult.displayText = "The sum is " + sum;
+                    actionResult.spokenText = actionResult.displayText;
+                    break;
+                case 'subtract':
+                    diff = parseInt(entities[0].entity);
+                    if (entities.length == 1 && entities[0].type == "builtin.number"){
+                        diff = 0;
+                    }
+                    else{
+                        for (i=1; i < entities.length; i++){
+                            if (entities[i].type == "builtin.number")
+                                diff-= parseInt(entities[i].entity);
+                        }
                     }
 
                     actionResult.displayText = "The sum of this number is " + sum;
                     actionResult.spokenText = actionResult.displayText;
-                    break;
-                 case 'greetings':
+                case 'greetings':
                     actionResult.displayText = "Well, hello there!";
                     actionResult.spokenText = "Well hello there!";
                     break;
