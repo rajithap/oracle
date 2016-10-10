@@ -50,7 +50,7 @@
                         }
                     }
 
-                    actionResult.displayText = "The sum of this number is " + sum;
+                    actionResult.displayText = "The difference is " + diff;
                     actionResult.spokenText = actionResult.displayText;
                 case 'greetings':
                     actionResult.displayText = "Well, hello there!";
