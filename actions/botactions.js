@@ -39,9 +39,13 @@
                     actionResult.spokenText = actionResult.displayText;
                     break;
                 case 'subtract':
-                    diff = parseInt(entities[0].entity);
+                    diff = parseInt(entities[0].entity)
                     if (entities.length == 1 && entities[0].type == "builtin.number"){
-                        diff = 0;
+                        txt = entities[0].entity;
+                        nums = txt.split(' - ');
+                        for (i = 1; i< nums.length; i++){
+                            diff -= parseInt(entities[i].entity);
+                        }
                     }
                     else{
                         for (i=1; i < entities.length; i++){
