@@ -1,7 +1,7 @@
 ﻿angular.module('yapp')
     .factory('actionService', function ($http, $q) {
         var executeIntent = function (intentResult, entities) {
-
+            // Computer Aided Learning and Virtual Intelligence Network
             var actionResult = new Object();
             console.log(intentResult);
             console.log(entities);
