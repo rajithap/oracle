@@ -1,7 +1,7 @@
 ﻿angular.module('yapp')
     .factory('actionService', function ($http, $q) {
         var executeIntent = function (intentResult, entities) {
-
+            // Computer Aided Learning and Virtual Intelligence Network
             var actionResult = new Object();
             console.log(intentResult);
             console.log(entities);
@@ -25,15 +25,34 @@
                     break;
                  case 'add':
                     sum = 0
-                    for (i=0; i < entities.length; i++){
-                        if (entities[i].type == "builtin.number"):
-                            sum+= entities[i].entity;
+                    if (entities.length == 1 && entities[0].type == "builtin.number"){
+                        sum = parseInt(entities[0].entity)*2;
+                    }
+                    else{
+                        for (i=0; i < entities.length; i++){
+                            if (entities[i].type == "builtin.number")
+                                sum+= parseInt(entities[i].entity);
+                        }
                     }
 
-                    actionResult.displayText = "The sum of this number is " + sum;
+                    actionResult.displayText = "The sum is " + sum;
                     actionResult.spokenText = actionResult.displayText;
                     break;
-                 case 'greetings':
+                case 'subtract':
+                    diff = parseInt(entities[0].entity);
+                    if (entities.length == 1 && entities[0].type == "builtin.number"){
+                        diff = 0;
+                    }
+                    else{
+                        for (i=1; i < entities.length; i++){
+                            if (entities[i].type == "builtin.number")
+                                diff-= parseInt(entities[i].entity);
+                        }
+                    }
+
+                    actionResult.displayText = "The difference is " + diff;
+                    actionResult.spokenText = actionResult.displayText;
+                case 'greetings':
                     actionResult.displayText = "Well, hello there!";
                     actionResult.spokenText = "Well hello there!";
                     break;
