@@ -52,6 +52,7 @@
 
                     actionResult.displayText = "The difference is " + diff;
                     actionResult.spokenText = actionResult.displayText;
+                    break;
                 case 'greetings':
                     actionResult.displayText = "Well, hello there!";
                     actionResult.spokenText = "Well hello there!";
