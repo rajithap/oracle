@@ -36,7 +36,7 @@ angular.module('yapp').controller('baseController', function ($scope, $state, $h
 
     $scope.recognition.onerror = function (event) {
         if (event.error == 'no-speech') {
-            $scope.start_img = 'mic.gif';                    
+            $scope.start_img = 'mic-slash.gif';                    
             $scope.ignore_onend = true;
         }
         if (event.error == 'audio-capture') {
@@ -63,7 +63,8 @@ angular.module('yapp').controller('baseController', function ($scope, $state, $h
         var apppurl = 'https://api.projectoxford.ai/luis/v1/application?id=4d92f786-a859-420c-93f3-695d0f17baed&subscription-key=bf8bd31bf4344e7ab98c26c7c0b4855e&q=' +  $scope.final_transcript + '\'';
         $http.get(apppurl).then(function (response) {
             $scope.appresponse = response;
-            console.log(response);
+            $scope.query = response.data.query;
+            console.log($scope);
            if ($scope.appresponse.status == '200') {
                 var intents = $scope.appresponse.data.intents;
                 var entities = $scope.appresponse.data.entities;
@@ -81,10 +82,16 @@ angular.module('yapp').controller('baseController', function ($scope, $state, $h
                 }
                 console.log(intents[topintent].intent);
                 console.log(entities);
-                var intentResult = actionService.ExecuteIntent(intents[topintent].intent, entities);
+                if ($scope.prevIntent == undefined)
+                    var intentResult = actionService.ExecuteIntent($scope.query, intents[topintent].intent, entities, "No prev intent", "No prev entities", "No prev response");
+                else
+                    var intentResult = actionService.ExecuteIntent($scope.query, intents[topintent].intent, entities, $scope.prevIntent, $scope.prevEntities, $scope.prevResponse);
                 $scope.ttsstring = intentResult.spokenText;
                 $scope.displayText = intentResult.displayText;
-                $scope.playtts();                
+                $scope.playtts(); 
+                $scope.prevIntent = intents[topintent].intent;
+                $scope.prevEntities = entities;  
+                $scope.prevResponse = intentResult.displayText;             
             }            
         });
     };
@@ -125,7 +132,7 @@ angular.module('yapp').controller('baseController', function ($scope, $state, $h
         }
         $scope.recognition.start();
         $scope.ignore_onend = false;
-        $scope.start_img = 'mic-slash.gif';        
+        $scope.start_img = 'mic.gif';        
         $scope.start_timestamp = event.timeStamp;
     }
 });

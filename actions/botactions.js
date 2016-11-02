@@ -1,10 +1,37 @@
 ﻿angular.module('yapp')
     .factory('actionService', function ($http, $q) {
-        var executeIntent = function (intentResult, entities) {
-            // Computer Aided Learning and Virtual Intelligence Network
+        var explanations = function (intentResult, entities, prevIntent, prevEntities){
+
+            explanations.ask = function(intentResult, entities){
+                console.log("asking for explanations")
+                console.log(prevIntent);
+                if (!asked && (intentResult == 'add' || intentResult == 'subtract' || intentResult == 'multiply' || intentResult=='divide')){
+                    console.log("asking....");
+                    actionResult.displayText = "Would you like to learn how to " + intentResult + " these numbers first?";
+                    actionResult.spokenText = actionResult.displayText;
+                    prevIntent = intentResult;
+                    prevEntities = entities;
+                    asked = true;
+                    console.log("asked");
+                    return actionResult;
+                }
+            }
+
+        }
+
+        var executeIntent = function (query, intentResult, entities, prevIntent, prevEntities, prevResponse) {
+            // Computer Aided Learning and Virtual Intelligence Network?
             var actionResult = new Object();
-            console.log(intentResult);
-            console.log(entities);
+            
+            
+
+            actionResult.round = function(number, precision) {
+                factor = Math.pow(10, precision);
+                tempNumber = number * factor;
+                roundedTempNumber = Math.round(tempNumber);
+                return roundedTempNumber / factor;
+            };
+
             switch(intentResult)
             {
                 case 'asktime':
@@ -15,15 +42,14 @@
                     }
                     if (m < 10) m = '0' + m;
                     if (s < 10) s = '0' + s;
-
-                    actionResult.displayText = "it's " + h + " " + m + " " + ampm;
-                    actionResult.spokenText = "now the time is " + h + " " + m + " " + ampm;
+                    actionResult.displayText = "it's " + h + ":" + m + " " + ampm;
+                    actionResult.spokenText = "the time is " + h + " " + m + " " + ampm;
                     break;
                 case 'shakehand':
                     actionResult.displayText = "Well hello there";
                     actionResult.spokenText = "Well hello there how are you!";
                     break;
-                 case 'add':
+                case 'add':
                     sum = 0;
                     if (entities.length == 1 && entities[0].type == "builtin.number"){
                         sum = parseInt(entities[0].entity)*2;
@@ -35,8 +61,9 @@
                         }
                     }
 
-                    actionResult.displayText = "The sum is " + sum;
+                    actionResult.displayText = "The sum is " + actionResult.round(sum, 4);
                     actionResult.spokenText = actionResult.displayText;
+                    prevExplained = false;
                     break;
                 case 'subtract':
                     for (i=0; i<entities.length; i++){
@@ -62,8 +89,9 @@
                         }
                     }
 
-                    actionResult.displayText = "The difference is " + diff;
+                    actionResult.displayText = "The difference is " + actionResult.round(diff,4);
                     actionResult.spokenText = actionResult.displayText;
+                    prevExplained = false;
                     break;
                 case 'multiply':
                     product = 1;
@@ -72,8 +100,9 @@
                                 product*= parseInt(entities[i].entity);
                     }
 
-                    actionResult.displayText = "The product is " + product;
+                    actionResult.displayText = "The product is " + actionResult.round(product, 4);
                     actionResult.spokenText = actionResult.displayText;
+                    prevExplained = false;
                     break;
                 case 'divide':
                     for (i=0; i<entities.length; i++){
@@ -88,11 +117,12 @@
                                 quot /= parseInt(entities[i].entity);
                     }
 
-                    actionResult.displayText = "The quotient is " + quot;
+                    actionResult.displayText = "The quotient is " + actionResult.round(quot, 5);
                     actionResult.spokenText = actionResult.displayText;
+                    prevExplained = false;
                     break;
                 case 'greetings':
-                    actionResult.displayText = "Hi! Nice to meet you!";
+                    actionResult.displayText = "Hello! Nice to meet you!";
                     actionResult.spokenText = actionResult.displayText;
                     break;
                 case 'tellname':
@@ -109,16 +139,29 @@
                         return actionResult;
                     });                    
                     break;
+                case 'None':                    
+                    queryString = splitString(query);
+
+                    var appurl = 'https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q='+ queryString; 
+                    actionResult.displayText = "Sorry, I am not yet capable of handling that. ";
+                    actionResult.spokenText = "Sorry, I am not yet capable of handling that. Try this link: " + appurl;
+                    break;
                 default:
-                    actionResult.displayText = "Sorry I am not yet capable of handling that.";
-                    actionResult.spokenText = actionResult.displayText
+                    actionResult.displayText = "Sorry, I am not yet capable of handling that.";
+                    actionResult.spokenText = actionResult.displayText;
             }   
             return actionResult;
         }
 
         return {
-            ExecuteIntent: function (intent, entities) {
-                return executeIntent(intent, entities);
+            ExecuteIntent: function (query, intent, entities, prevIntent, prevEntities, prevResponse) {
+                if (prevResponse == "Would you like to learn how to " + prevIntent + " these numbers first?"){
+                        if (intent == 'positiveresponse'){
+                            return explanations.explain(prevIntent, prevEntities);
+                        }
+                        return executeIntent(query, prevIntent, prevEntities, "No prev intent", "No prev entities");
+                }
+                return executeIntent(query, intent, entities, prevIntent, prevEntities);
             }
         };
 });
